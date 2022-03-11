@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "esnext",
-    "baseUrl": ".", // 公共路径
+    "module": "CommonJS",
+    "baseUrl": "./src", // 公共路径
     "strict": true,
     "jsx": "preserve",
     "importHelpers": true,
@@ -10,13 +10,13 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
     "outDir": "./build",
     "types": [
       "node"
     ],
-    "declaration": true, // 是否生成声明文件
-    "declarationDir": "build/type",// 声明文件打包的位置
+    // "sourceMap": true, 转成 js 代码后不需要 xxx.js.map 文件
+    // "declaration": true, // 是否生成声明文件
+    // "declarationDir": "build/type",// 声明文件打包的位置
     "lib": [
       "esnext",
       "dom",
