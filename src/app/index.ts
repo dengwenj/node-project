@@ -6,4 +6,3 @@ export default app
 export {
   env
 }
-

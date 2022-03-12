@@ -1,4 +1,4 @@
 export interface IloginAndRegister {
   username: string
-  password: number
+  password: string
 }
