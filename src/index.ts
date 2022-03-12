@@ -1,20 +1,5 @@
-import Koa from 'koa'
+import app, { env } from './app'
 
-const app = new Koa()
-
-app.use((ctx, next) => {
-  ctx.body = 'hh'
+app.listen(env.APP_PORT, () => {
+  console.log(`服务器启动 ${env.APP_PORT} 端口成功~`)
 })
-
-app.listen(1120, () => {
-  console.log('服务器启动成功~')
-})
-
-interface HH {
-  a: string
-}
-
-const a: HH = {
-  a: ''
-}
-console.log(a)
