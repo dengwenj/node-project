@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "module": "CommonJS",
-    "baseUrl": "./src", // 公共路径
+    // "baseUrl": "./src", // 公共路径
     "strict": true,
     "jsx": "preserve",
     "importHelpers": true,

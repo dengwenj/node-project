@@ -1,7 +1,11 @@
 import Router from 'koa-router'
 
 import { user } from '../../controller/user'
-import { verifyUser, handlePassword } from '../../middleware/user'
+import { 
+  verifyUser,
+   handlePassword, 
+   verifyLogin 
+} from '../../middleware/user'
 
 const userRouter = new Router()
 
@@ -9,7 +13,7 @@ const userRouter = new Router()
 userRouter.post('/register', verifyUser, handlePassword, user.create)
 
 // 用户登录
-userRouter.post('/login', user.login)
+userRouter.post('/login', verifyLogin, user.login)
 
 export default userRouter
 

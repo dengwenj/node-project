@@ -1,6 +1,8 @@
 import { 
   USERNAME_OR_PASSWORD_IS_REQUIRED, 
-  USENAME_EXISTS 
+  USERNAME_EXISTS,
+  USERNAME_DOES_NOT_EXISTS,
+  PASSWORD_ERROR
 } from "../../constants/error-types"
 
 import type { Context } from "koa"
@@ -13,9 +15,17 @@ const errorHandle = (error: Error, ctx: Context) => {
       status = 400 // Bad Request
       message = '用户名或密码不能为空~'
       break
-    case USENAME_EXISTS:
+    case USERNAME_EXISTS:
       status = 409 // 冲突了
       message = '用户名已存在~'
+      break
+    case USERNAME_DOES_NOT_EXISTS:
+      status = 400
+      message = '用户名不存在~'
+      break
+    case PASSWORD_ERROR:
+      status = 400
+      message = '密码错误~'
       break
     default:
       status = 404

@@ -1,6 +1,6 @@
 import { 
   USERNAME_OR_PASSWORD_IS_REQUIRED,
-  USENAME_EXISTS
+  USERNAME_EXISTS
 } from "../../../constants/error-types"
 import { userserice } from "../../../service/user"
 
@@ -20,7 +20,7 @@ const verifyUser = async (ctx: Context, next: Next) => {
   const res: any = await userserice.getUserByName(username)  
   // 说明注册过的
   if (res.length) {
-    const error = new Error(USENAME_EXISTS)
+    const error = new Error(USERNAME_EXISTS)
     ctx.app.emit('error', error, ctx)
     return
   }

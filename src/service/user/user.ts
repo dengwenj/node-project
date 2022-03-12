@@ -1,7 +1,6 @@
 import connection from '../../database'
  
 import type { IloginAndRegister } from './types'
- 
 class UserSercice {
   // 用户注册
   async create({ username, password }: IloginAndRegister) {
