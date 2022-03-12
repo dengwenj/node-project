@@ -1,14 +1,18 @@
 import Koa from 'koa'
 import bodyparser from 'koa-bodyparser'
 
+import useRoutes from '../routers'
 import { userRouter } from '../routers/user'
 import errorHandle from './error-handle'
 
-const app = new Koa()
+import type { IApplication } from './types'
+
+const app: IApplication = new Koa()
+
+app.useRoutes = useRoutes
 
 app.use(bodyparser())
-app.use(userRouter.routes())
-app.use(userRouter.allowedMethods)
+app.useRoutes(app)
 
 // 错误处理
 app.on('error', errorHandle)
