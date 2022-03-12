@@ -1,14 +1,12 @@
 import Koa from 'koa'
-import Router from 'koa-router'
+import bodyparser from 'koa-bodyparser'
+
+import { userRouter } from '../routers/user'
 
 const app = new Koa()
-const userRouter = new Router({ prefix: '/user' })
 
-userRouter.post('/', (ctx, next) => {
-  ctx.body = '创建用户成功'
-})
-
+app.use(bodyparser())
 app.use(userRouter.routes())
-app.use(userRouter.allowedMethods())
+app.use(userRouter.allowedMethods)
 
 export default app
