@@ -5,10 +5,11 @@ import {
 import { userserice } from "../../service/user"
 
 import type { Context, Next } from "koa"
+import type { IloginAndRegister } from "../../service/user/types"
 
 // 验证用户
 const verifyUser = async (ctx: Context, next: Next) => {
-  const { username, password } = ctx.request.body
+  const { username, password }: IloginAndRegister = ctx.request.body
   // 判断用户名和密码不能为空，不能不传 
   if (!username || !password) {
     const error = new Error(USERNAME_OR_PASSWORD_IS_REQUIRED)

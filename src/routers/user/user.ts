@@ -8,6 +8,9 @@ const userRouter = new Router()
 // 用户注册
 userRouter.post('/register', verifyUser, handlePassword, user.create)
 
+// 用户登录
+userRouter.post('/login', user.login)
+
 export default userRouter
 
 // userRouter.post('/', async (ctx, next) => {
