@@ -1,7 +1,7 @@
 import Router from 'koa-router'
 
 import { user } from '../../controller/user'
-import { verifyUser, handlePassword } from '../../middleware/user/'
+import { verifyUser, handlePassword } from '../../middleware/user'
 
 const userRouter = new Router()
 

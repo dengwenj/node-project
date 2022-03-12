@@ -1,7 +1,7 @@
-import { md5password } from "../../utils/user"
+import { md5password } from "../../../utils/user"
 
 import type { Context, Next } from "koa"
-import type { IloginAndRegister } from "../../service/user/types"
+import type { IloginAndRegister } from "../../../service/user/types"
 
 const handlePassword = async (ctx: Context, next: Next) => {
   const { password }: IloginAndRegister = ctx.request.body

@@ -1,7 +1,2 @@
-import verifyUser from "./verifyUser"
-import handlePassword from "./handlePassword"
-
-export {
-  verifyUser,
-  handlePassword
-}
+export { verifyUser, handlePassword } from './register'
+export { verifyLogin } from './login'
