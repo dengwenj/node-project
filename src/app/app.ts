@@ -1,7 +1,7 @@
 import Koa from 'koa'
 import bodyparser from 'koa-bodyparser'
 
-import useRoutes from '../routers'
+import useRoutes from '../routers/useRoutes'
 import errorHandle from './error-handle'
 
 import type { IApplication } from './types'

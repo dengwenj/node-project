@@ -4,7 +4,8 @@ import { user } from '../../controller/user'
 import { 
   verifyUser,
    handlePassword, 
-   verifyLogin 
+   verifyLogin,
+   verifyAuth
 } from '../../middleware/user'
 
 const userRouter = new Router()
@@ -14,6 +15,9 @@ userRouter.post('/register', verifyUser, handlePassword, user.create)
 
 // 用户登录
 userRouter.post('/login', verifyLogin, user.login)
+
+// 验证授权
+userRouter.get('/verify', verifyAuth, user.success)
 
 export default userRouter
 

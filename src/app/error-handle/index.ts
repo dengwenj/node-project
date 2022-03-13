@@ -2,7 +2,8 @@ import {
   USERNAME_OR_PASSWORD_IS_REQUIRED, 
   USERNAME_EXISTS,
   USERNAME_DOES_NOT_EXISTS,
-  PASSWORD_ERROR
+  PASSWORD_ERROR,
+  UNAUTHORIZATION
 } from "../../constants/error-types"
 
 import type { Context } from "koa"
@@ -26,6 +27,10 @@ const errorHandle = (error: Error, ctx: Context) => {
     case PASSWORD_ERROR:
       status = 400
       message = '密码错误~'
+      break
+    case UNAUTHORIZATION:
+      status = 401
+      message = '未授权，token已过期~'
       break
     default:
       status = 404

@@ -32,6 +32,11 @@ class UserController {
       token
     }
   }
+
+  // 验证授权
+  async success(ctx: Context, next: Next) {
+    ctx.body = '授权成功~'
+  }
 }
 
 export default new UserController()
