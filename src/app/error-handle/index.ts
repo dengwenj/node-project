@@ -3,7 +3,8 @@ import {
   USERNAME_EXISTS,
   USERNAME_DOES_NOT_EXISTS,
   PASSWORD_ERROR,
-  UNAUTHORIZATION
+  UNAUTHORIZATION,
+  AUTHORIZATION_NOT_EXISTS
 } from "../../constants/error-types"
 
 import type { Context } from "koa"
@@ -31,6 +32,10 @@ const errorHandle = (error: Error, ctx: Context) => {
     case UNAUTHORIZATION:
       status = 401
       message = '未授权，token已过期~'
+      break
+    case AUTHORIZATION_NOT_EXISTS:
+      status = 401
+      message = 'authorization not exists'
       break
     default:
       status = 404

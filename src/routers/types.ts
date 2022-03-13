@@ -1,5 +1,6 @@
 import type Router from "koa-router";
 
-export interface IUserRouterObj {
+export interface IRouterObj {
   userRouter: Router
+  sayRouter: Router
 }
