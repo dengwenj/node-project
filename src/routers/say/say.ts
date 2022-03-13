@@ -8,4 +8,7 @@ const sayRouter = new Router()
 // 发表动态
 sayRouter.post('/say', verifyAuth, say.create)
 
+// 获取某一条动态
+sayRouter.get('/say/:sayId', say.getSayById)
+
 export default sayRouter
