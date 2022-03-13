@@ -11,3 +11,12 @@ export interface IUser {
   createAt: Date
   updateAt: Date
 }
+
+export interface IJwtUser {
+  id: number
+  username: string
+  createAt: string
+  updateAt: string
+  iat: number
+  exp: number
+}

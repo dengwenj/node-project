@@ -6,10 +6,12 @@ import {
   AUTHORIZATION_NOT_EXISTS 
 } from '../../../constants/error-types'
 
-import type { Context, Next } from "koa"
+import type { Next } from "koa"
+import type { IJwtUser } from '../../../service/user/types'
+import type { IContentJWT } from './types'
 
 // 验证授权
-const verifyAuth = async (ctx: Context, next: Next) => {
+const verifyAuth = async (ctx: IContentJWT, next: Next) => {
   const { authorization } = ctx.request.header
 
   // authorization 当前端发送请求的时候 请求头里面没有 authorization
@@ -21,9 +23,11 @@ const verifyAuth = async (ctx: Context, next: Next) => {
 
   const token = authorization.replace('Bearer ', '')
   try {
-    const res = jwt.verify(token, publicContent, {
+    const result = jwt.verify(token, publicContent, {
       algorithms: ['RS256']
     })
+    ctx.result = result as IJwtUser
+    
     await next()
   } catch (err) {
     const error = new Error(UNAUTHORIZATION)
