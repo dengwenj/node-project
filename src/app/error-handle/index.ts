@@ -4,7 +4,8 @@ import {
   USERNAME_DOES_NOT_EXISTS,
   PASSWORD_ERROR,
   UNAUTHORIZATION,
-  AUTHORIZATION_NOT_EXISTS
+  AUTHORIZATION_NOT_EXISTS,
+  BAD_REQUEST
 } from "../../constants/error-types"
 
 import type { Context } from "koa"
@@ -36,6 +37,10 @@ const errorHandle = (error: Error, ctx: Context) => {
     case AUTHORIZATION_NOT_EXISTS:
       status = 401
       message = 'authorization not exists'
+      break
+    case BAD_REQUEST:
+      status = 400
+      message = 'Bad Request'
       break
     default:
       status = 404
