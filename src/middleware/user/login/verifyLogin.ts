@@ -6,11 +6,12 @@ import {
 } from "../../../constants/error-types"
 import { md5password } from "../../../utils/user"
 
-import type { Context, Next } from "koa"
+import type { Next } from "koa"
 import type { IloginAndRegister } from "../../../service/user/types"
 import type { IUser } from "../../../service/user/types"
+import type { IContext } from "./types"
 
-const verifyLogin = async (ctx: Context, next: Next) => {
+const verifyLogin = async (ctx: IContext, next: Next) => {
   // 获取用户名和密码
   const { username, password }: IloginAndRegister = ctx.request.body
 
@@ -36,6 +37,7 @@ const verifyLogin = async (ctx: Context, next: Next) => {
     ctx.app.emit('error', error, ctx)
     return
   }
+  ctx.user = user
 
   // 放行
   next()

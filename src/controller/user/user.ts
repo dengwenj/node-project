@@ -1,7 +1,10 @@
+import jwt from 'jsonwebtoken'
+
 import { userserice } from '../../service/user'
+import { privateContent, publicContent } from '../../config/keysContent'
 
 import type { Context, Next }  from 'koa'
-import type { IloginAndRegister } from '../../service/user/types'
+import type { IContext } from '../../middleware/user/login/types'
 
 class UserController {
   // 用户注册
@@ -15,9 +18,19 @@ class UserController {
   }
 
   // 用户登录
-  async login(ctx: Context, next: Next) {
-    const { username }: IloginAndRegister = ctx.request.body
-    ctx.body = `登录成功，${username}`
+  async login(ctx: IContext, next: Next) {
+    const { password, ...userInfo } = ctx.user
+
+    // 生成 token
+    const token = jwt.sign(userInfo, privateContent, {
+      expiresIn: 60 * 60 * 24 * 30,
+      algorithm: 'RS256'
+    })
+
+    ctx.body = {
+      ...userInfo,
+      token
+    }
   }
 }
 
