@@ -1,9 +1,9 @@
 import connection from '../../database'
  
 class AuthService {
-  async authPermission(userId: number, sayId: number) {
-    const statement = `SELECT * FROM say WHERE id = ? && userId = ?`
-    const [res]: any = await connection.execute(statement, [sayId, userId])
+  async checkTable(tableName: string, userId: number, id: number) {
+    const statement = `SELECT * FROM ${tableName} WHERE id = ? && userId = ?`
+    const [res]: any = await connection.execute(statement, [id, userId])
     return res.length
   }
 }

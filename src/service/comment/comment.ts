@@ -22,6 +22,17 @@ class CommentService {
       console.log(error)
     }
   }
+
+  // 修改评论
+  async update(content: string, commentId: number) {
+    try {
+      const statement = `UPDATE comment SET content = ? WHERE id = ?`
+      const [res] = await connection.execute(statement, [content, commentId])
+      return res
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }
 
 export default new CommentService()

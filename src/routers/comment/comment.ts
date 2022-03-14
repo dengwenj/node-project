@@ -1,7 +1,7 @@
 import Router from 'koa-router'
 
 import { comment } from '../../controller/comment'
-import { verifyAuth } from '../../middleware/user'
+import { verifyAuth, verifyPermission } from '../../middleware/user'
 
 const commentRouter = new Router({ prefix: '/comment' })
 
@@ -10,5 +10,10 @@ commentRouter.post('/', verifyAuth, comment.create)
 
 // 回复评论
 commentRouter.post('/:commentId/reply', verifyAuth, comment.reply)
+
+// 修改评论，只能修改自己的
+commentRouter.patch('/:commentId', verifyAuth, verifyPermission('comment'), comment.update)
+
+// 删除评论
 
 export default commentRouter

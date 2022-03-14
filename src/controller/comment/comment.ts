@@ -23,6 +23,16 @@ class CommentController {
     const res = await commentservice.reply(content, sayId, commentId, userId)
     ctx.body = res
   }
+
+  // 修改评论
+  async update(ctx: Context, next: Next) {
+    const { content } = ctx.request.body
+    const { commentId } = ctx.params
+
+    // 操作数据库
+    const res = await commentservice.update(content, commentId)
+    ctx.body = res
+  }
 }
 
 export default new CommentController()
