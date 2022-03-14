@@ -33,6 +33,15 @@ class CommentController {
     const res = await commentservice.update(content, commentId)
     ctx.body = res
   }
+
+  // 删除评论
+  async remove(ctx: Context, next: Next) {
+    const { commentId } = ctx.params
+
+    // 操作数据库
+    const res = await commentservice.remove(commentId)
+    ctx.body = res
+  }
 }
 
 export default new CommentController()

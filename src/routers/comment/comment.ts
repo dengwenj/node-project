@@ -15,5 +15,6 @@ commentRouter.post('/:commentId/reply', verifyAuth, comment.reply)
 commentRouter.patch('/:commentId', verifyAuth, verifyPermission('comment'), comment.update)
 
 // 删除评论
+commentRouter.delete('/:commentId', verifyAuth, verifyPermission('comment'), comment.remove)
 
 export default commentRouter
