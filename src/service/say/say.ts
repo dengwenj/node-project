@@ -39,7 +39,12 @@ class SayService {
   async getList(offset: any, limit: any) {
     // offset 偏移量 limit 一次限制多少条
     const statement = `
-      ${baseStatement}
+      SELECT 
+        say.id id, say.content content, say.createAt createTime, say.updateAt updateTime,
+        JSON_OBJECT('id', users.id, 'name', users.username) author,
+        (SELECT COUNT(*) FROM comment WHERE comment.sayId = say.id) commentCount
+      FROM say
+      LEFT JOIN users ON say.userId = users.id
       LIMIT ?, ?;
     `
     try {
