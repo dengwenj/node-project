@@ -5,7 +5,8 @@ import {
   PASSWORD_ERROR,
   UNAUTHORIZATION,
   AUTHORIZATION_NOT_EXISTS,
-  BAD_REQUEST
+  BAD_REQUEST,
+  UNPERMISSION
 } from "../../constants/error-types"
 
 import type { Context } from "koa"
@@ -41,6 +42,10 @@ const errorHandle = (error: Error, ctx: Context) => {
     case BAD_REQUEST:
       status = 400
       message = 'Bad Request'
+      break
+    case UNPERMISSION:
+      status = 401
+      message = '不具备权限~'
       break
     default:
       status = 404

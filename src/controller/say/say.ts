@@ -40,6 +40,16 @@ class SayController {
     const res = await sayservice.getList(offset, limit)
     ctx.body = res
   }
+
+  // 修改动态 
+  async update(ctx: Context, next: Next) {
+    const { sayId } = ctx.params
+    const { content } = ctx.request.body
+    
+    // 修改数据库里面的动态
+    const res = await sayservice.update(sayId, content)
+    ctx.body = res
+  }
 }
 
 export default new SayController()

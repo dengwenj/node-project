@@ -6,12 +6,11 @@ import {
   AUTHORIZATION_NOT_EXISTS 
 } from '../../../constants/error-types'
 
-import type { Next } from "koa"
+import type { Context, Next } from "koa"
 import type { IJwtUser } from '../../../service/user/types'
-import type { IContentJWT } from './types'
 
 // 验证授权
-const verifyAuth = async (ctx: IContentJWT, next: Next) => {
+const verifyAuth = async (ctx: Context, next: Next) => {
   const { authorization } = ctx.request.header
 
   // authorization 当前端发送请求的时候 请求头里面没有 authorization

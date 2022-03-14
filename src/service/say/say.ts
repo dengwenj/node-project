@@ -49,6 +49,17 @@ class SayService {
       console.log(error)
     }
   }
+
+  // 修改动态
+  async update(sayId: number, content: string) {
+    try {
+      const statement = `UPDATE say SET content = ? WHERE id = ?`
+      const [res] = await connection.execute(statement, [content, sayId])
+      return res
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }
 
 export default new SayService()
