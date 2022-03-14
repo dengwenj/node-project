@@ -45,10 +45,10 @@ class CommentController {
 
   // 获取评论
   async list(ctx: Context, next: Next) {
-    const { sayId } = ctx.query
+    const { sayId, offset, limit } = ctx.query
 
     // 操作数据库拿到评论列表 
-    const res = await commentservice.list(sayId)
+    const res = await commentservice.list(sayId, offset, limit)
     ctx.body = res
   }
 }

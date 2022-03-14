@@ -1,12 +1,5 @@
 import connection from '../../database'
 
-const baseStatement = `
-  SELECT 
-    say.id id, say.content content, say.createAt createTime, say.updateAt updateTime,
-    JSON_OBJECT('id', users.id, 'name', users.username) author
-  FROM say
-  LEFT JOIN users ON say.userId = users.id
-`
 
 class SayService {
   // 发表动态
@@ -24,9 +17,27 @@ class SayService {
   // 获取某一条动态
   async getSayById(id: number) {
     const statement = `
-      ${baseStatement}
+      SELECT 
+        say.id id, say.content content, say.createAt createTime, say.updateAt updateTime,
+        JSON_OBJECT('id', users.id, 'name', users.username) author
+      FROM say
+      LEFT JOIN users ON say.userId = users.id
       WHERE say.id = ?;
     `
+    // SELECT  动态和评论一次性获取过来
+    //   say.id id, say.content content, say.createAt createTime, say.updateAt updateTime,
+    //   JSON_OBJECT('id', users.id, 'name', users.username) author,
+    //   JSON_ARRAYAGG(
+    //     JSON_OBJECT(
+    //       'id', comment.id, 'content', comment.content, 'commentId', comment.commentId, 'createTime', comment.createAt,
+    //       'user', JSON_OBJECT('id', cu.id, 'username', cu.username)
+    //     )
+    //   ) commentList
+    // FROM say
+    // LEFT JOIN users ON say.userId = users.id
+    // LEFT JOIN comment ON say.id = comment.sayId
+    // LEFT JOIN users cu ON comment.userId = cu.id
+    // WHERE say.id = 1
     try {
       const [res] = await connection.execute(statement, [id])
       return res

@@ -46,10 +46,18 @@ class CommentService {
   }
 
   // 获取评论列表
-  async list<T>(sayId: T) {
+  async list<T>(sayId: T, offset: T, limit: T) {
     try {
-      const statement = `SELECT * FROM comment WHERE sayId = ?`
-      const [res] = await connection.execute(statement, [sayId])
+      const statement = `
+      SELECT 
+        comment.id, comment.content, comment.commentId, comment.createAt,
+        JSON_OBJECT('id', users.id, 'username', users.username) user
+      FROM comment
+      LEFT JOIN users ON comment.userId = users.id
+      WHERE sayId = ?
+      LIMIT ?, ?;
+      `
+      const [res] = await connection.execute(statement, [sayId, offset, limit])
       return res
     } catch (error) {
       console.log(error)
