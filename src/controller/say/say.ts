@@ -50,6 +50,14 @@ class SayController {
     const res = await sayservice.update(sayId, content)
     ctx.body = res
   }
+
+  // 删除动态
+  async remove(ctx: Context, next: Next) {
+    const { sayId } = ctx.params 
+    // 操作数据库删除动态
+    const res = await sayservice.remove(sayId)
+    ctx.body = res
+  }
 }
 
 export default new SayController()

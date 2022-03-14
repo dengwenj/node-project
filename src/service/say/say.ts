@@ -60,6 +60,18 @@ class SayService {
       console.log(error)
     }
   }
+
+  // 删除动态
+  async remove(sayId: number) {
+    try {
+      const statement = `DELETE FROM say WHERE id = ?;`
+      const [res] = await connection.execute(statement, [sayId])
+      console.log(res, 'fffww');
+      return res
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }
 
 export default new SayService()

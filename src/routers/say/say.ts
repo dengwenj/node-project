@@ -17,4 +17,7 @@ sayRouter.get('/say', say.list)
 // 修改动态 用户必须登录，用户必须具备修改的权限
 sayRouter.patch('/say/:sayId', verifyAuth, verifyPermission, say.update)
 
+// 删除动态
+sayRouter.delete('/say/:sayId', verifyAuth, verifyPermission, say.remove)
+
 export default sayRouter

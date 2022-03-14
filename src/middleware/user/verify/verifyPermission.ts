@@ -7,7 +7,6 @@ import type { Context, Next } from "koa"
 const verifyPermission = async (ctx: Context, next: Next) => {
   const { id: userId } = ctx.result
   const { sayId } = ctx.params
-  console.log(userId, sayId)
   
   // 操作数据库 匹配下 userId 和 sayId
   const isPermission = await authservice.authPermission(userId, sayId)
