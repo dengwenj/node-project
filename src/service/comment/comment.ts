@@ -44,6 +44,17 @@ class CommentService {
       console.log(error)
     }
   }
+
+  // 获取评论列表
+  async list<T>(sayId: T) {
+    try {
+      const statement = `SELECT * FROM comment WHERE sayId = ?`
+      const [res] = await connection.execute(statement, [sayId])
+      return res
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }
 
 export default new CommentService()

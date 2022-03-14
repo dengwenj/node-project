@@ -17,4 +17,7 @@ commentRouter.patch('/:commentId', verifyAuth, verifyPermission('comment'), comm
 // 删除评论
 commentRouter.delete('/:commentId', verifyAuth, verifyPermission('comment'), comment.remove)
 
+// 获取评论列表
+commentRouter.get('/', comment.list)
+
 export default commentRouter

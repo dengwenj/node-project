@@ -42,6 +42,15 @@ class CommentController {
     const res = await commentservice.remove(commentId)
     ctx.body = res
   }
+
+  // 获取评论
+  async list(ctx: Context, next: Next) {
+    const { sayId } = ctx.query
+
+    // 操作数据库拿到评论列表 
+    const res = await commentservice.list(sayId)
+    ctx.body = res
+  }
 }
 
 export default new CommentController()
