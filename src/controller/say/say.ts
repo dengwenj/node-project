@@ -61,8 +61,8 @@ class SayController {
   
   // 给动态添加标签
   async labels(ctx: Context, next: Next) {
-    const { labels } = ctx.request.body
-    console.log(labels)
+    console.log(ctx.labelArr);
+    
     ctx.body = '给动态添加标签'
   }
 }

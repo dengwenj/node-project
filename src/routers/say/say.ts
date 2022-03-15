@@ -2,6 +2,7 @@ import Router from 'koa-router'
 
 import { say } from '../../controller/say'
 import { verifyAuth, verifyPermission } from '../../middleware/user'
+import { verifyLabelExists } from '../../middleware/label'
 
 const sayRouter = new Router()
 
@@ -21,6 +22,6 @@ sayRouter.patch('/say/:sayId', verifyAuth, verifyPermission('say'), say.update)
 sayRouter.delete('/say/:sayId', verifyAuth, verifyPermission('say'), say.remove)
 
 // 给动态添加标签
-sayRouter.post('/say/:sayId/labels', verifyAuth, verifyPermission('say'), say.labels)
+sayRouter.post('/say/:sayId/labels', verifyAuth, verifyPermission('say'), verifyLabelExists, say.labels)
 
 export default sayRouter
