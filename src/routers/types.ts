@@ -5,4 +5,5 @@ export interface IRouterObj {
   sayRouter: Router
   commentRouter: Router
   labelRouter: Router
+  fileRouter: Router
 }
