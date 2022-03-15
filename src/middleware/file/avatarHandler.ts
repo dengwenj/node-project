@@ -1,7 +1,9 @@
 import multer from 'koa-multer'
 
+import { filePath } from '../../constants/filePath'
+
 const upload = multer({
-  dest: './upload/avatar'
+  dest: filePath.AVATAR
 })
 
 const avatarHandler = upload.single('avatar')

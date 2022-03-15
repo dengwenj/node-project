@@ -34,6 +34,17 @@ class UserSercice {
       console.log(error)
     }
   }
+
+  // 存放头像路径
+  async saveAvatarUrl(userId: number, avatarUrl: string) {
+    try {
+      const statement = `UPDATE users SET avatarUrl = ? WHERE id = ?`
+      const [res] = await connection.execute(statement, [avatarUrl, userId])
+      return res
+    } catch (error) {
+      
+    }
+  }
 }
 
 export default new UserSercice()

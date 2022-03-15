@@ -19,7 +19,7 @@ class SayService {
     const statement = `
       SELECT 
         say.id id, say.content content, say.createAt createTime, say.updateAt updateTime,
-        JSON_OBJECT('id', users.id, 'name', users.username) author,
+        JSON_OBJECT('id', users.id, 'name', users.username, 'avatarUrl', users.avatarUrl) author,
         IF(COUNT(label.id),JSON_ARRAYAGG(JSON_OBJECT('id', label.id, 'name', label.name)),NULL) label
       FROM say
       LEFT JOIN users ON say.userId = users.id
@@ -56,7 +56,7 @@ class SayService {
     const statement = `
       SELECT 
         say.id id, say.content content, say.createAt createTime, say.updateAt updateTime,
-        JSON_OBJECT('id', users.id, 'name', users.username) author,
+        JSON_OBJECT('id', users.id, 'name', users.username, 'avatarUrl', users.avatarUrl) author,
         (SELECT COUNT(*) FROM comment WHERE comment.sayId = say.id) commentCount,
         (SELECT COUNT(*) FROM say_label WHERE say_label.sayId = say.id) labelCount
       FROM say

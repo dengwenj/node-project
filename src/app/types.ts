@@ -2,6 +2,7 @@ import type Application from 'koa'
 
 export interface Ienv extends NodeJS.ProcessEnv {
   APP_PORT?: string | undefined
+  APP_HOST?: string
   MYSQL_HOST?: string
   MYSQL_PORT?: string
   MYSQL_DATABASE?: string
