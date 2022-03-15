@@ -6,7 +6,8 @@ import type { Context, Next } from "koa"
 import type { IContentJWT } from "../../middleware/user/verify/types"
 
 class SayController {
-  // 发表动态
+  // 发表动态 
+  // TODO 在发表动态的时候把数据什么类型的标签写上，传过来的是标签 id 在结合 标签 id 和 动态 id 把这个数据添加到 动态和标签的关系表中
   async create(ctx: IContentJWT, next: Next) {
     // 获取数据
     const { content } = ctx.request.body

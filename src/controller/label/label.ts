@@ -8,6 +8,12 @@ class LabelController {
     const res = await labelservice.create(labelName)
     ctx.body = res
   }
+
+  async getLabels(ctx: Context, next: Next) {
+    const { offset, limit } = ctx.query
+    const res = await labelservice.getLabels(offset, limit)
+    ctx.body = res
+  }
 }
 
 export default new LabelController()

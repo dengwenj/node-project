@@ -4,9 +4,12 @@ import { verifyAuth } from "../../middleware/user"
 import { label } from "../../controller/label"
 import { labelOnly } from "../../middleware/label"
 
-const commentRouter = new Router({ prefix: '/label' })
+const labelRouter = new Router({ prefix: '/label' })
 
 // 创建标签
-commentRouter.post('/', verifyAuth, labelOnly, label.create)
+labelRouter.post('/', verifyAuth, labelOnly, label.create)
 
-export default commentRouter
+// 获取标签
+labelRouter.get('/', label.getLabels)
+
+export default labelRouter

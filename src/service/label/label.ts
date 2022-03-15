@@ -36,6 +36,19 @@ class LabelService {
     const [res]: any = await connection.execute(statement, [sayId, labelId])
     return res.length ? true : false
   }
+
+  // 获取标签
+  async getLabels<T>(offset: T, limit: T) {
+    try {
+      const statement = `
+        ${offset && limit ? `SELECT * FROM label LIMIT ?, ?` : `SELECT * FROM label`}
+      `
+      const [res] = await connection.execute(statement, offset && limit ? [offset, limit] : null)
+      return res
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }
 
 export default new LabelService()
