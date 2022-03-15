@@ -49,13 +49,13 @@ class CommentService {
   async list<T>(sayId: T, offset: T, limit: T) {
     try {
       const statement = `
-      SELECT 
-        comment.id, comment.content, comment.commentId, comment.createAt,
-        JSON_OBJECT('id', users.id, 'username', users.username) user
-      FROM comment
-      LEFT JOIN users ON comment.userId = users.id
-      WHERE sayId = ?
-      LIMIT ?, ?;
+        SELECT 
+          comment.id, comment.content, comment.commentId, comment.createAt,
+          JSON_OBJECT('id', users.id, 'username', users.username) user
+        FROM comment
+        LEFT JOIN users ON comment.userId = users.id
+        WHERE sayId = ?
+        LIMIT ?, ?;
       `
       const [res] = await connection.execute(statement, [sayId, offset, limit])
       return res
