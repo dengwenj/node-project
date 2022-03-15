@@ -6,7 +6,8 @@ import {
   UNAUTHORIZATION,
   AUTHORIZATION_NOT_EXISTS,
   BAD_REQUEST,
-  UNPERMISSION
+  UNPERMISSION,
+  LABEL_IS_ONLY
 } from "../../constants/error-types"
 
 import type { Context } from "koa"
@@ -46,6 +47,10 @@ const errorHandle = (error: Error, ctx: Context) => {
     case UNPERMISSION:
       status = 401
       message = '不具备权限~'
+      break
+    case LABEL_IS_ONLY:
+      status = 400
+      message = '标签是唯一的~'
       break
     default:
       status = 404
