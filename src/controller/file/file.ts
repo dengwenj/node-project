@@ -14,7 +14,7 @@ class fileController {
     // 获取信息
     const req: IIncomingMessage = ctx.req
     const { id: userId } = ctx.result
-
+    
     if (req.file) {
       const { filename, size, mimetype } = req.file
 
@@ -23,9 +23,19 @@ class fileController {
       if (!isAvatarInfo) {
         // 插入
         const res = await fileservice.avatarInfo(filename, size, mimetype, userId)
+        if (!res) {
+          const error = new Error(BAD_REQUEST)
+          ctx.app.emit('error', error, ctx)
+          return
+        }
       } else {
         // 更新
         const res = await fileservice.updateAvatarInfo(filename, size, mimetype, userId)
+        if (!res) {
+          const error = new Error(BAD_REQUEST)
+          ctx.app.emit('error', error, ctx)
+          return
+        }
       }
       
       // 把获取头像路径存放在 user 表里
