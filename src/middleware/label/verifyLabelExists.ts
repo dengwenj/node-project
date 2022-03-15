@@ -12,7 +12,6 @@ const verifyLabelExists = async (ctx: Context, next: Next) => {
     const label: ILabel = { name: value }
 
     const res1: any = await labelservice.only(value)
-    console.log(res1);
     
     if (!res1.length) {
       // 添加标签

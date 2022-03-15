@@ -19,10 +19,14 @@ class SayService {
     const statement = `
       SELECT 
         say.id id, say.content content, say.createAt createTime, say.updateAt updateTime,
-        JSON_OBJECT('id', users.id, 'name', users.username) author
+        JSON_OBJECT('id', users.id, 'name', users.username) author,
+        IF(COUNT(label.id),JSON_ARRAYAGG(JSON_OBJECT('id', label.id, 'name', label.name)),NULL) label
       FROM say
       LEFT JOIN users ON say.userId = users.id
-      WHERE say.id = ?;
+      LEFT JOIN say_label ON say.id = say_label.sayId
+      LEFT JOIN label ON say_label.labelId = label.id
+      GROUP BY say.id
+      HAVING say.id = ?;
     `
     // SELECT  动态和评论一次性获取过来
     //   say.id id, say.content content, say.createAt createTime, say.updateAt updateTime,
@@ -53,7 +57,8 @@ class SayService {
       SELECT 
         say.id id, say.content content, say.createAt createTime, say.updateAt updateTime,
         JSON_OBJECT('id', users.id, 'name', users.username) author,
-        (SELECT COUNT(*) FROM comment WHERE comment.sayId = say.id) commentCount
+        (SELECT COUNT(*) FROM comment WHERE comment.sayId = say.id) commentCount,
+        (SELECT COUNT(*) FROM say_label WHERE say_label.sayId = say.id) labelCount
       FROM say
       LEFT JOIN users ON say.userId = users.id
       LIMIT ?, ?;

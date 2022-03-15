@@ -9,6 +9,7 @@ class LabelController {
     ctx.body = res
   }
 
+  // 获取标签
   async getLabels(ctx: Context, next: Next) {
     const { offset, limit } = ctx.query
     const res = await labelservice.getLabels(offset, limit)
