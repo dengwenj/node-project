@@ -42,7 +42,18 @@ class UserSercice {
       const [res] = await connection.execute(statement, [avatarUrl, userId])
       return res
     } catch (error) {
-      
+      console.log(error)
+    }
+  }
+
+  // 获取用户信息
+  async getUserInfoByUserId<T>(userId: T) {
+    try {
+      const statement = `SELECT * FROM users WHERE id = ?`
+      const [res] = await connection.execute(statement, [userId])
+      return res
+    } catch (error) {
+      console.log(error)
     }
   }
 }

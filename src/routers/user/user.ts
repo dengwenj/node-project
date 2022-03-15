@@ -19,6 +19,9 @@ userRouter.post('/login', verifyLogin, user.login)
 // 获取头像
 userRouter.get('/user/:userId/avatar', user.getAvatarByUserId)
 
+// 获取用户信息
+userRouter.get('/user/:userId', user.getUserInfoByUserId)
+
 // 验证授权
 userRouter.get('/verify', verifyAuth, user.success)
 

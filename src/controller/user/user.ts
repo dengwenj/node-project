@@ -48,6 +48,19 @@ class UserController {
     ctx.body = fs.createReadStream(`${filePath.AVATAR}/${res[0].fileName}`)
   }
 
+  // 获取用户信息
+  async getUserInfoByUserId(ctx: Context, next: Next) {
+    const { userId } = ctx.params
+    
+    // 去数据库获取该用户的信息
+    const res: any = await userserice.getUserInfoByUserId(userId)
+    const { password, ...userInfo } = res[0]
+    ctx.body = userInfo
+  }
+
+  // 更新用户信息
+  async updateUserInfo() {}
+
   // 验证授权
   async success(ctx: Context, next: Next) {
     ctx.body = '授权成功~'
