@@ -20,4 +20,7 @@ sayRouter.patch('/say/:sayId', verifyAuth, verifyPermission('say'), say.update)
 // 删除动态
 sayRouter.delete('/say/:sayId', verifyAuth, verifyPermission('say'), say.remove)
 
+// 给动态添加标签
+sayRouter.post('/say/:sayId/labels', verifyAuth, verifyPermission('say'), say.labels)
+
 export default sayRouter
