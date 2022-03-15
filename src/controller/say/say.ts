@@ -1,4 +1,5 @@
 import { sayservice } from "../../service/say"
+import { labelservice } from "../../service/label"
 import { BAD_REQUEST } from "../../constants/error-types"
 
 import type { Context, Next } from "koa"
@@ -61,7 +62,18 @@ class SayController {
   
   // 给动态添加标签
   async labels(ctx: Context, next: Next) {
-    console.log(ctx.labelArr);
+    const { labelArr } = ctx
+    const { sayId } = ctx.params
+    // 拿到了这些标签放入关系表中
+    for (const value of labelArr) {
+      const labelId = value.id
+
+      // 当前一次插入过相同的标签过后下一次就不在插了
+      const isExistsLabel = await labelservice.isExistsLabel(labelId, sayId)
+      if (!isExistsLabel) {
+        await labelservice.addLabel(labelId, sayId)
+      }
+    }
     
     ctx.body = '给动态添加标签'
   }

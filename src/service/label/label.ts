@@ -22,6 +22,20 @@ class LabelService {
       console.log(error)
     }
   }
+
+  // 把拿到的标签放入关系表中
+  async addLabel<T>(labelId: T, sayId: T) {
+    const statement = `INSERT INTO say_label (labelId, sayId) VALUES (?, ?)`
+    const [res] = await connection.execute(statement, [labelId, sayId])
+    return res
+  }
+
+  // 当前一次插入过相同的标签过后下一次这个动态里就不在插相同的了
+  async isExistsLabel<T>(labelId: T, sayId: T) {
+    const statement = `SELECT * FROM say_label WHERE sayId = ? && labelId = ?`
+    const [res]: any = await connection.execute(statement, [sayId, labelId])
+    return res.length ? true : false
+  }
 }
 
 export default new LabelService()
