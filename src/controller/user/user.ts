@@ -1,7 +1,10 @@
+import fs from 'fs'
+
 import jwt from 'jsonwebtoken'
 
 import { userserice } from '../../service/user'
-import { privateContent, publicContent } from '../../config/keysContent'
+import { privateContent } from '../../config/keysContent'
+import { filePath } from '../../constants/filePath'
 
 import type { Context, Next }  from 'koa'
 import type { IContext } from '../../middleware/user/login/types'
@@ -31,6 +34,18 @@ class UserController {
       ...userInfo,
       token
     }
+  }
+
+  // 获取头像
+  async getAvatarByUserId(ctx: Context, next: Next) {
+    const { userId } = ctx.params
+
+    // 根据 userId 去数据库拿对应的头像信息
+    const res: any = await userserice.getAvatarInfoByUserId(userId)
+
+    // 图像信息
+    ctx.response.set('content-type', res[0].mimetype)
+    ctx.body = fs.createReadStream(`${filePath.AVATAR}/${res[0].fileName}`)
   }
 
   // 验证授权

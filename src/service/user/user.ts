@@ -23,6 +23,17 @@ class UserSercice {
       console.log(error)
     }
   }
+
+  // 获取头像信息
+  async getAvatarInfoByUserId<T>(userId: T) {
+    try {
+      const statement = `SELECT * FROM avatar WHERE userId = ?`
+      const [res] = await connection.execute(statement, [userId])
+      return res
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }
 
 export default new UserSercice()
