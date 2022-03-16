@@ -1,3 +1,4 @@
 export enum filePath {
-  AVATAR = './upload/avatar'
+  AVATAR = './upload/avatar',
+  PICTURE = './upload/picture'
 }

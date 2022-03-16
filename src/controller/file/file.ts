@@ -48,6 +48,24 @@ class fileController {
     const error = new Error(BAD_REQUEST)
     ctx.app.emit('error', error, ctx)
   }
+
+  // 上传动态的图片
+  async savePictureInfo( ctx: Context, next: Next) {
+    const { id: userId } = ctx.result
+    const { sayId } = ctx.params
+    const req: IIncomingMessage = ctx.req
+
+    for (const value of req.files!) {
+      const { filename, size, mimetype } = value
+
+      // 把数据存放到数据库中
+      const res = await fileservice.createPicture(filename, size, mimetype, userId, sayId)
+      console.log(res, 1111)
+
+    }
+
+    ctx.body = '上传动态图片成功!~'
+  }
 }
 
 export default new fileController()

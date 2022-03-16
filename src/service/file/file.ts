@@ -33,6 +33,17 @@ class fileservice {
       console.log(error)
     }
   }
+
+  // 上传动态图片的信息
+  async createPicture(filename: string, size: number, mimetype: string, userId: number, sayId: number) {
+    try {
+      const statement = `INSERT INTO picture (fileName, size, mimetype, userId, sayId) VALUES (?, ?, ?, ?, ?)`
+      const [res] = await connection.execute(statement, [filename, size, mimetype, userId, sayId])
+      return res
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }
 
 export default new fileservice()
