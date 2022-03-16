@@ -77,6 +77,30 @@ class UserSercice {
       console.log(error)
     }
   }
+
+  // 获取用户动态
+  async getUserSay<T>(...args: T[]) {
+    console.log(args);
+    
+    try {
+      const statement = `
+        SELECT 
+          say.id id, say.content content, say.createAt createTime, say.updateAt updateTime,
+          JSON_OBJECT('id', users.id, 'name', users.username, 'avatarUrl', users.avatarUrl) author,
+          (SELECT COUNT(*) FROM comment WHERE comment.sayId = say.id) commentCount,
+          (SELECT COUNT(*) FROM say_label WHERE say_label.sayId = say.id) labelCount,
+          (SELECT JSON_ARRAYAGG(CONCAT('http://localhost:1120/say/images/', picture.fileName)) FROM picture WHERE picture.sayId = say.id) images
+        FROM say
+        LEFT JOIN users ON say.userId = users.id
+        WHERE users.id = ?
+        LIMIT ?, ?
+      `
+      const [res] = await connection.execute(statement, [...args])
+      return res
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }
 
 export default new UserSercice()

@@ -5,8 +5,7 @@ import {
   verifyUser,
    handlePassword, 
    verifyLogin,
-   verifyAuth,
-   verifyPermission
+   verifyAuth
 } from '../../middleware/user'
 
 const userRouter = new Router()
@@ -26,10 +25,22 @@ userRouter.get('/user/:userId', user.getUserInfoByUserId)
 // 修改用户信息
 userRouter.post('/user', verifyAuth, user.addUserInfo)
 
+// 获取用户的动态
+userRouter.get('/user/say/:userId', user.getUserSayByUserId)
+
 // 验证授权
 userRouter.get('/verify', verifyAuth, user.success)
 
 export default userRouter
+
+
+
+
+
+
+
+
+
 
 // userRouter.post('/', async (ctx, next) => {
 //   // 给他卡起不让他结束，就不会响应，执行完了才会响应， await 不写的话 后面没东西了，就会返回 Not Found， 就是没写 ctx.body，

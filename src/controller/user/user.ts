@@ -68,8 +68,15 @@ class UserController {
     ctx.body = res
   }
 
-  // 更新用户信息
-  async updateUserInfo() {}
+  // 获取用户动态
+  async getUserSayByUserId(ctx: Context, next: Next) {
+    const { userId } = ctx.params
+    const { offset = '0', limit = '10' } = ctx.query
+
+    // 去数据库拿该用户的动态
+    const res = await userserice.getUserSay(userId, offset, limit)
+    ctx.body = res
+  }
 
   // 验证授权
   async success(ctx: Context, next: Next) {
