@@ -1,30 +1,37 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var fs_1 = require("fs");
+const fs_1 = require("fs");
 function useRoutes() {
-    var _this = this;
     // readdirSync 可以读取某个文件夹下面的文件
-    var files = (0, fs_1.readdirSync)(__dirname); // [ 'index.ts', 'user', 'types.ts' ]
-    files.forEach(function (file) { return (0, tslib_1.__awaiter)(_this, void 0, void 0, function () {
-        var res_1;
-        var _this = this;
-        return (0, tslib_1.__generator)(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    if (!(file === 'index.ts')) return [3 /*break*/, 2];
-                    return [4 /*yield*/, Promise.resolve().then(function () { return (0, tslib_1.__importStar)(require("./".concat(file))); })];
-                case 1:
-                    res_1 = _a.sent();
-                    Object.keys(res_1).forEach(function (item) {
-                        var value = res_1[item];
-                        _this.use(value.routes());
-                        _this.use(value.allowedMethods());
-                    });
-                    _a.label = 2;
-                case 2: return [2 /*return*/];
-            }
-        });
-    }); });
+    const files = (0, fs_1.readdirSync)(__dirname); // [ 'index.ts', 'user', 'types.ts' ]
+    files.forEach(async (file) => {
+        if (file === 'index.ts' || file === 'index.js') {
+            const res = await Promise.resolve().then(() => __importStar(require(`./${file}`)));
+            Object.keys(res).forEach((item) => {
+                const value = res[item];
+                this.use(value.routes());
+                this.use(value.allowedMethods());
+            });
+        }
+    });
 }
 exports.default = useRoutes;

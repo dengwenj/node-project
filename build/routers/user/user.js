@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var koa_router_1 = (0, tslib_1.__importDefault)(require("koa-router"));
-var user_1 = require("../../controller/user");
-var user_2 = require("../../middleware/user");
-var userRouter = new koa_router_1.default();
+const tslib_1 = require("tslib");
+const koa_router_1 = (0, tslib_1.__importDefault)(require("koa-router"));
+const user_1 = require("../../controller/user");
+const user_2 = require("../../middleware/user");
+const userRouter = new koa_router_1.default();
 // 用户注册
 userRouter.post('/register', user_2.verifyUser, user_2.handlePassword, user_1.user.create);
 // 用户登录

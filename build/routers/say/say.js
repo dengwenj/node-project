@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var koa_router_1 = (0, tslib_1.__importDefault)(require("koa-router"));
-var say_1 = require("../../controller/say");
-var user_1 = require("../../middleware/user");
-var label_1 = require("../../middleware/label");
-var sayRouter = new koa_router_1.default();
+const tslib_1 = require("tslib");
+const koa_router_1 = (0, tslib_1.__importDefault)(require("koa-router"));
+const say_1 = require("../../controller/say");
+const user_1 = require("../../middleware/user");
+const label_1 = require("../../middleware/label");
+const sayRouter = new koa_router_1.default();
 // 发表动态
 sayRouter.post('/say', user_1.verifyAuth, say_1.say.create);
 // 获取某一条动态

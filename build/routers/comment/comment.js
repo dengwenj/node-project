@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var koa_router_1 = (0, tslib_1.__importDefault)(require("koa-router"));
-var comment_1 = require("../../controller/comment");
-var user_1 = require("../../middleware/user");
-var commentRouter = new koa_router_1.default({ prefix: '/comment' });
+const tslib_1 = require("tslib");
+const koa_router_1 = (0, tslib_1.__importDefault)(require("koa-router"));
+const comment_1 = require("../../controller/comment");
+const user_1 = require("../../middleware/user");
+const commentRouter = new koa_router_1.default({ prefix: '/comment' });
 // 发表评论
 commentRouter.post('/', user_1.verifyAuth, comment_1.comment.create);
 // 回复评论

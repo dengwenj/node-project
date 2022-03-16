@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var error_types_1 = require("../../constants/error-types");
-var errorHandle = function (error, ctx) {
-    var status;
-    var message;
+const error_types_1 = require("../../constants/error-types");
+const errorHandle = (error, ctx) => {
+    let status;
+    let message;
     switch (error.message) {
         case error_types_1.USERNAME_OR_PASSWORD_IS_REQUIRED:
             status = 400; // Bad Request

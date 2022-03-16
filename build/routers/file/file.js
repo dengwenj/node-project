@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var koa_router_1 = (0, tslib_1.__importDefault)(require("koa-router"));
-var user_1 = require("../../middleware/user");
-var file_1 = require("../../middleware/file");
-var file_2 = require("../../controller/file");
-var fileRouter = new koa_router_1.default({ prefix: '/upload' });
+const tslib_1 = require("tslib");
+const koa_router_1 = (0, tslib_1.__importDefault)(require("koa-router"));
+const user_1 = require("../../middleware/user");
+const file_1 = require("../../middleware/file");
+const file_2 = require("../../controller/file");
+const fileRouter = new koa_router_1.default({ prefix: '/upload' });
 // 上传头像
 fileRouter.post('/avatar', user_1.verifyAuth, file_1.avatarHandler, file_2.file.saveAvatarInfo);
 // 上传动态的图片

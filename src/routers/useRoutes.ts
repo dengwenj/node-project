@@ -9,7 +9,7 @@ function useRoutes(this: Application) {
   const files = readdirSync(__dirname) // [ 'index.ts', 'user', 'types.ts' ]
 
   files.forEach(async (file) => {
-    if (file === 'index.ts') {
+    if (file === 'index.ts' || file === 'index.js') {
       const res: IRouterObj = await import(`./${file}`)
       Object.keys(res).forEach((item) => {
         const value: Router = (res as any)[item]
