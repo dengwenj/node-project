@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.fileRouter = exports.labelRouter = exports.commentRouter = exports.sayRouter = exports.userRouter = void 0;
+var user_1 = require("./user");
+Object.defineProperty(exports, "userRouter", { enumerable: true, get: function () { return user_1.userRouter; } });
+var say_1 = require("./say");
+Object.defineProperty(exports, "sayRouter", { enumerable: true, get: function () { return say_1.sayRouter; } });
+var comment_1 = require("./comment");
+Object.defineProperty(exports, "commentRouter", { enumerable: true, get: function () { return comment_1.commentRouter; } });
+var label_1 = require("./label");
+Object.defineProperty(exports, "labelRouter", { enumerable: true, get: function () { return label_1.labelRouter; } });
+var file_1 = require("./file");
+Object.defineProperty(exports, "fileRouter", { enumerable: true, get: function () { return file_1.fileRouter; } });
