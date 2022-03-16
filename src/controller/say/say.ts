@@ -84,14 +84,19 @@ class SayController {
 
   // 获取动态的图片
   async getPictureInfo(ctx: Context, next: Next) {
-    const { filename } = ctx.params
+    let { filename } = ctx.params
+    const { type } = ctx.query
     
     // 根据 filename 去数据库里面查找数据
     const res: any = await sayservice.getPictureInfo(filename)
+    const types = ['small', 'middle', 'large']
+    if (types.some(item => item === type)) {
+      filename = filename + '-' + type
+    }
 
     // 展示图片
     ctx.response.set('content-type', res[0].mimetype)
-    ctx.body = fs.createReadStream(`${filePath.PICTURE}/${res[0].fileName}`)
+    ctx.body = fs.createReadStream(`${filePath.PICTURE}/${filename}`)
   }
 }
 

@@ -10,5 +10,7 @@ export interface IIncomingMessage extends IncomingMessage {
     filename: string
     size: number
     mimetype: string
+    path: string
+    destination: string
   }[]
 }
