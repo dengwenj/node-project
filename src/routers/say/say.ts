@@ -24,4 +24,7 @@ sayRouter.delete('/say/:sayId', verifyAuth, verifyPermission('say'), say.remove)
 // 给动态添加标签
 sayRouter.post('/say/:sayId/labels', verifyAuth, verifyPermission('say'), verifyLabelExists, say.labels)
 
+// 获取动态的图片
+sayRouter.get('/say/images/:filename', say.getPictureInfo) 
+
 export default sayRouter

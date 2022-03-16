@@ -1,6 +1,9 @@
+import fs from 'fs'
+
 import { sayservice } from "../../service/say"
 import { labelservice } from "../../service/label"
 import { BAD_REQUEST } from "../../constants/error-types"
+import { filePath } from '../../constants/filePath'
 
 import type { Context, Next } from "koa"
 import type { IContentJWT } from "../../middleware/user/verify/types"
@@ -77,6 +80,18 @@ class SayController {
     }
     
     ctx.body = '给动态添加标签'
+  }
+
+  // 获取动态的图片
+  async getPictureInfo(ctx: Context, next: Next) {
+    const { filename } = ctx.params
+    
+    // 根据 filename 去数据库里面查找数据
+    const res: any = await sayservice.getPictureInfo(filename)
+
+    // 展示图片
+    ctx.response.set('content-type', res[0].mimetype)
+    ctx.body = fs.createReadStream(`${filePath.PICTURE}/${res[0].fileName}`)
   }
 }
 

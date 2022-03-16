@@ -60,8 +60,6 @@ class fileController {
 
       // 把数据存放到数据库中
       const res = await fileservice.createPicture(filename, size, mimetype, userId, sayId)
-      console.log(res, 1111)
-
     }
 
     ctx.body = '上传动态图片成功!~'

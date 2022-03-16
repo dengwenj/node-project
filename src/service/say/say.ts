@@ -20,7 +20,8 @@ class SayService {
       SELECT 
         say.id id, say.content content, say.createAt createTime, say.updateAt updateTime,
         JSON_OBJECT('id', users.id, 'name', users.username, 'avatarUrl', users.avatarUrl) author,
-        IF(COUNT(label.id),JSON_ARRAYAGG(JSON_OBJECT('id', label.id, 'name', label.name)),NULL) label
+        IF(COUNT(label.id),JSON_ARRAYAGG(JSON_OBJECT('id', label.id, 'name', label.name)),NULL) label,
+        (SELECT JSON_ARRAYAGG(CONCAT('http://localhost:1120/say/images/', picture.fileName)) FROM picture WHERE picture.sayId = say.id) images
       FROM say
       LEFT JOIN users ON say.userId = users.id
       LEFT JOIN say_label ON say.id = say_label.sayId
@@ -58,7 +59,8 @@ class SayService {
         say.id id, say.content content, say.createAt createTime, say.updateAt updateTime,
         JSON_OBJECT('id', users.id, 'name', users.username, 'avatarUrl', users.avatarUrl) author,
         (SELECT COUNT(*) FROM comment WHERE comment.sayId = say.id) commentCount,
-        (SELECT COUNT(*) FROM say_label WHERE say_label.sayId = say.id) labelCount
+        (SELECT COUNT(*) FROM say_label WHERE say_label.sayId = say.id) labelCount,
+        (SELECT JSON_ARRAYAGG(CONCAT('http://localhost:1120/say/images/', picture.fileName)) FROM picture WHERE picture.sayId = say.id) images
       FROM say
       LEFT JOIN users ON say.userId = users.id
       LIMIT ?, ?;
@@ -88,6 +90,17 @@ class SayService {
       const statement = `DELETE FROM say WHERE id = ?;`
       const [res] = await connection.execute(statement, [sayId])
       console.log(res, 'fffww');
+      return res
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // 获取动态的图片
+  async getPictureInfo(filename: string) {
+    try {
+      const statement = `SELECT * FROM picture WHERE filename = ?`
+      const [res] = await connection.execute(statement, [filename])
       return res
     } catch (error) {
       console.log(error)
