@@ -5,7 +5,8 @@ import {
   verifyUser,
    handlePassword, 
    verifyLogin,
-   verifyAuth
+   verifyAuth,
+   verifyPermission
 } from '../../middleware/user'
 
 const userRouter = new Router()
@@ -22,8 +23,8 @@ userRouter.get('/user/:userId/avatar', user.getAvatarByUserId)
 // 获取用户信息 TODO
 userRouter.get('/user/:userId', user.getUserInfoByUserId)
 
-// 更新用户信息
-userRouter.post('/user')
+// 修改用户信息
+userRouter.post('/user', verifyAuth, user.addUserInfo)
 
 // 验证授权
 userRouter.get('/verify', verifyAuth, user.success)

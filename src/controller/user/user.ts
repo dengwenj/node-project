@@ -58,6 +58,16 @@ class UserController {
     ctx.body = userInfo
   }
 
+  // 修改用户信息
+  async addUserInfo(ctx: Context, next: Next) {
+    const userInfo = ctx.request.body
+    const { id: userId } = ctx.result
+
+    // 去数据库修改数据
+    const res = await userserice.addUserInfo(userInfo, userId)
+    ctx.body = res
+  }
+
   // 更新用户信息
   async updateUserInfo() {}
 

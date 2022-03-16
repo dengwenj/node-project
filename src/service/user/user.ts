@@ -56,6 +56,27 @@ class UserSercice {
       console.log(error)
     }
   }
+
+  // 修改用户信息
+  async addUserInfo(userInfo: any, userId: number) {
+    const userInfoValue = []
+    for (const value in userInfo) {
+      userInfoValue.push(userInfo[value])
+    }
+    
+    let userInfoKey = ''
+    Object.keys(userInfo).forEach((item) => {
+      userInfoKey = `${item} = ?,` + userInfoKey
+    })
+    const totleUserInfoKey = userInfoKey.slice(0, userInfoKey.length - 1)
+    try {
+      const statement = `UPDATE users SET ${totleUserInfoKey} WHERE id = ?`
+      const [res] = await connection.execute(statement, [...userInfoValue, userId])
+      return res
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }
 
 export default new UserSercice()
