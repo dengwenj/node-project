@@ -66,7 +66,7 @@ class UserSercice {
     
     let userInfoKey = ''
     Object.keys(userInfo).forEach((item) => {
-      userInfoKey = `${item} = ?,` + userInfoKey
+      userInfoKey = userInfoKey + `${item} = ?,`
     })
     const totleUserInfoKey = userInfoKey.slice(0, userInfoKey.length - 1)
     try {
