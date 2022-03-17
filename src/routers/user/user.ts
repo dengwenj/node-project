@@ -10,6 +10,11 @@ import {
 
 const userRouter = new Router()
 
+// 一上来就可以访问的 http://139.196.212.216:2217
+userRouter.get('/', (ctx, next) => {
+  ctx.body = 'welcome !'
+})
+
 // 用户注册
 userRouter.post('/register', verifyUser, handlePassword, user.create)
 
